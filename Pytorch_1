@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Mar 25 20:20:12 2018
+
+@author: ighazi
+"""
+import torch
+import time
+import numpy as np
+from torch.autograd import Variable
+"""This is a tutorial regarding the autograd package and the variable, function
+class of the package. The variable class has three raw attributes namely .data,
+.grad, grad_fn """
+
+"""The variable class is the central class in pytorch and it wraps a tensor and 
+supports all operations supported for a tensor. Furthermore it has three portions
+the .data which stores the raw tensor, the .grad which stores gradient with
+respect to this variable once you ball .backprop() after having done all of
+the computations and the grad_fn variable which stores the operation that led 
+to this variable from the previous variable. This grad_fn function references 
+the function class which together with variable class forms an acyclic graph 
+from our input tensor to output tensor"""
+
+x= Variable(torch.ones(2,2), requires_grad=True)
+print(x)
+"""x doesn't have a backward function since its user defined"""
+start_time= time.time()
+y= x+2
+print(y.grad_fn)
+print(y.data)
+print("Here")
+print(y.grad)
+
+z= y*y*3
+out= z.mean()
+print(z, out)
+
+out.backward()
+print("here")
+print(x.grad)
+print(z.grad)
+print(y.grad)
+f=0
+while(f!=100000):
+    f=f+1
+tot_time= time.time()- start_time
+print(tot_time)

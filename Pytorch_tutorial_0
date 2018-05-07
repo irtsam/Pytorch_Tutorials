@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+from __future__ import print_function
+import torch
+import numpy as np
+"""
+Created on Sun Mar 25 19:24:02 2018
+
+@author: ighazi
+"""
+
+"""This is  a tutorial for Pytorch"""
+
+
+"""Constructs a zero matrix"""
+xx= torch.Tensor(5,3)
+print(xx)
+
+"""Constructs a (5,3) size matrix initalized randomly"""
+xx= torch.rand(5,3)
+print(xx)
+
+"""The following prints the size of the torch tensor. It prints out a tuple 
+and supports all operations on tuples"""
+print(xx.size())
+y= xx.size()
+print(y[0])#Prints first element of the tuple
+
+
+"""The below creates another tensor and adds the previouis tensor top current 
+tensor"""
+y= torch.rand(5,3)
+g=xx+y
+print(g)
+g.add_(y)#In place addition of y into g
+print("Printing G",g)
+
+
+"""We can also use standard numpy resizing methods in torch"""
+KK= g[:,2] #read the second column
+print(KK)
+
+"""The np.resize is replaced by .view(x_new_size, y_new_size)"""
+yy= y.view(3,5)
+x= xx.view(-1,15)
+print(yy.size(), x.size())
+
+
+"""Below are methods to convert to numpy array and vice versa"""
+x_n= torch.ones(5,1)
+yy= x_n.numpy() #converts torch varibale to numpy
+print(x_n)
+print(yy)
+print(yy.shape)#Numpy size printing command
+
+
+a= np.ones([5,5])
+bb= torch.from_numpy(a)
+print(bb)
+print(a)
+
+""" Below is the code for running on CUDA"""
+if torch.cuda.is_available():
+    xx= x.cuda()
+    yyy= xx.cuda()
+    #jjj= xx+yyy
+
+
+
